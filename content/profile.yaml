@@ -20,17 +20,18 @@ identity:
 pitch: >
   Sajal Mishra is an Associate System Analyst and Full Stack AI Engineer at Syvora
   with about one year of professional experience building scalable web applications,
-  Go/Node backends, and Agentic AI / RAG solutions. He is a final-year B.Tech CSE
-  student (CGPA 8.24) who bridges frontend (React/Next.js), backend (Go, Node,
-  PostgreSQL), blockchain (Solidity), and LLM tooling to ship production-ready features.
+  Go/Node backends, and Agentic AI / RAG solutions. He completed his B.Tech in
+  Computer Science Engineering (CGPA 8.24) in July 2026 and bridges frontend
+  (React/Next.js), backend (Go, Node, PostgreSQL), blockchain (Solidity), and LLM
+  tooling to ship production-ready features.
 
 summary_for_recruiters: >
   Strong fit for Software Engineer / Full Stack / AI Engineer roles. Hands-on with
   React.js, Next.js, Node.js, Golang, Python, PostgreSQL, MongoDB, REST APIs,
   Generative AI, AI agents, RAG, workflow automation, and LLM integrations.
   Comfortable owning end-to-end features across frontend, backend, and AI systems.
-  Completing B.Tech in Computer Science Engineering with solid fundamentals in
-  OOP, DBMS, networking, DSA, and system design.
+  B.Tech CSE graduate (July 2026, CGPA 8.24) with solid fundamentals in OOP, DBMS,
+  networking, DSA, and system design.
 
 availability:
   seeking:
@@ -279,9 +280,10 @@ education:
     degree: "B.Tech — Computer Science Engineering"
     score: "CGPA 8.24"
     start: "2022-11"
-    end: "Present"
-    status: "Final-year / ongoing"
+    end: "2026-07"
+    status: "Graduated"
     highlights:
+      - "Completed B.Tech graduation in July 2026"
       - "Strong foundation in operating systems, DBMS, and computer networks"
       - "Hands-on programming and software development concepts"
 
@@ -343,7 +345,7 @@ faq_seeds:
   - q: "Primary tech stack?"
     a: "React/Next.js, Node.js, Go, Python, PostgreSQL/MongoDB, REST APIs, plus Agentic AI / RAG / LLM integrations; also Solidity for blockchain work."
   - q: "Education?"
-    a: "B.Tech CSE at Acropolis Institute of Technology and Research, Indore (CGPA 8.24), final year; Class XII PCM 92.8%, school Rank 1."
+    a: "B.Tech CSE from Acropolis Institute of Technology and Research, Indore (CGPA 8.24), graduated July 2026; Class XII PCM 92.8%, school Rank 1."
   - q: "Notable projects?"
     a: "HirePrep AI, FinCore, Veritas AI, Meeting Mind, AI Trade Bot, Rag-Agent, plus Syvora production work including an OpenClaw AI onboarding/training platform."
   - q: "Where is he based?"
