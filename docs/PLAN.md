@@ -112,10 +112,13 @@ LinkedIn ToS forbids scraping. Production approach:
 | UI | Tailwind + shadcn/ui; Claude-like chat (streaming bubbles, markdown) |
 | LLM | **Anthropic Claude** (primary) with OpenAI as optional fallback |
 | Embeddings | OpenAI `text-embedding-3-small` |
-| Vector + app DB | **Postgres + pgvector** (Neon or Supabase) |
+| ORM | **Prisma** |
+| Vector + app DB | **PostgreSQL + pgvector** (extension inside Postgres — not a separate product) |
+| Dev DB | Local Postgres via Docker (pgvector image) |
+| Prod DB | Any hosted Postgres with pgvector enabled (you choose later: Neon, Railway, self-host, etc.) |
 | Auth | Public HR chat; **owner admin** via simple password / magic link (NextAuth or Clerk lite) |
 | Ingest | Server actions / API routes + optional cron (Vercel cron) for GitHub re-sync |
-| Hosting | Vercel + Neon/Supabase |
+| App hosting | Vercel (app) + your Postgres host (data) |
 | Observability | Vercel Analytics + simple `chat_events` table (questions asked) |
 
 ---
@@ -179,7 +182,7 @@ flowchart LR
 - `lib/github/{sync,tools}.ts`
 - `lib/llm/{system-prompt,agent}.ts`
 - `content/profile.yaml`, `content/resume.pdf`
-- `db/schema.ts` — drizzle/prisma: `chunks`, `conversations`, `messages`, `events`
+- `prisma/schema.prisma` — Prisma models: `chunks`, `conversations`, `messages`, `events` (+ pgvector via raw SQL / Prisma extension)
 
 ### Chat request flow
 
@@ -213,7 +216,8 @@ flowchart LR
 ### Phase 0 — Foundation
 
 - Scaffold Next.js + TS + Tailwind + shadcn
-- Postgres + pgvector schema (`chunks`, `conversations`, `messages`, `events`)
+- Prisma + Postgres/pgvector schema (`chunks`, `conversations`, `messages`, `events`)
+- Local Docker Postgres (pgvector) for development
 - Env config, README, product branding for **Vita**
 
 ### Phase 1 — Context pipeline
@@ -239,7 +243,7 @@ flowchart LR
 ### Phase 4 — Harden & ship
 
 - Rate limits, analytics of HR questions, admin polish
-- Deploy Vercel + Neon
+- Deploy Vercel + hosted Postgres (pgvector)
 - Seed your real profile/resume/GitHub; QA with recruiter-style questions
 
 ---
@@ -248,11 +252,11 @@ flowchart LR
 
 | ID | Task | Status |
 |----|------|--------|
-| phase-0-foundation | Scaffold Next.js + TS + Tailwind/shadcn, Postgres/pgvector schema, Vita branding, env/README | pending |
+| phase-0-foundation | Scaffold Next.js + TS + Tailwind/shadcn, Prisma + Postgres/pgvector schema, Docker Postgres, Vita branding, env/README | pending |
 | phase-1-context | Build profile YAML + resume PDF + GitHub ingest → chunk/embed/upsert pipeline and admin reindex | pending |
 | phase-2-agent | Implement retrieval, system policy, streaming chat API, optional GitHub tools, citations | pending |
 | phase-3-ui | Ship HR landing + Claude-like chat UI with starters, markdown, source chips, profile links | pending |
-| phase-4-ship | Add rate limits, HR-question analytics, deploy to Vercel+Neon, seed real data and QA | pending |
+| phase-4-ship | Add rate limits, HR-question analytics, deploy to Vercel + hosted Postgres, seed real data and QA | pending |
 
 ---
 
