@@ -1,6 +1,7 @@
 import type { Profile } from "@/lib/profile";
 import type { RetrievedChunk } from "@/lib/rag/retrieve";
 import { formatEvidence } from "@/lib/rag/retrieve";
+import { formatTenure, todayLabel } from "@/lib/dates";
 
 export function buildProfileDigest(profile: Profile): string {
   const skills = [
@@ -9,10 +10,10 @@ export function buildProfileDigest(profile: Profile): string {
   ].join(", ");
 
   const experience = profile.experience
-    .map(
-      (job) =>
-        `- ${job.role} at ${job.company} (${job.start} – ${job.end})\n  ${job.highlights.slice(0, 3).join("; ")}`,
-    )
+    .map((job) => {
+      const tenure = formatTenure(job.start, job.end);
+      return `- ${job.role} at ${job.company} (${tenure})\n  ${job.highlights.slice(0, 3).join("; ")}`;
+    })
     .join("\n");
 
   const education = profile.education
@@ -31,6 +32,7 @@ export function buildProfileDigest(profile: Profile): string {
     .join("\n");
 
   return [
+    `Today's date (authoritative for tenure math): ${todayLabel()}`,
     `Candidate: ${profile.identity.name}`,
     `Title: ${profile.identity.title}`,
     `Location: ${profile.identity.location}`,
@@ -39,7 +41,7 @@ export function buildProfileDigest(profile: Profile): string {
     "",
     `Pitch: ${profile.pitch}`,
     "",
-    "Experience:",
+    "Experience (use the tenure strings below; do NOT recalculate months from a guessed current date):",
     experience,
     "",
     "Education:",
@@ -74,6 +76,7 @@ export function buildSystemPrompt(
 - Speak in ${voice} about the candidate (default: "${profile.identity.name} is…").
 - Be concise, professional, and recruiter-friendly (bullets and concrete tech/metrics when available).
 - Format answers in clean Markdown: short headings, bold labels, bullet lists. Avoid raw ** markers without structure.
+- For tenure/experience length: use the precomputed tenure in the digest (and Today's date). Never invent "~7 months" by assuming an outdated current date.
 - Answer ONLY from the Canonical Profile Digest and Retrieved Evidence below.
 - Never invent employers, dates, degrees, salary figures, or metrics.
 - Decline or redirect: ${decline || "personal life, politics"}.

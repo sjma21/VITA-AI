@@ -20,11 +20,11 @@ identity:
 
 pitch: >
   Sajal Mishra is an Associate System Analyst and Full Stack AI Engineer at Syvora
-  with about one year of professional experience building scalable web applications,
-  Go/Node backends, and Agentic AI / RAG solutions. He completed his B.Tech in
-  Computer Science Engineering (CGPA 8.24) in July 2026 and bridges frontend
-  (React/Next.js), backend (Go, Node, PostgreSQL), blockchain (Solidity), and LLM
-  tooling to ship production-ready features.
+  (since July 2025 — about 13 months / ~1.1+ years of professional experience as of
+  August 2026) building scalable web applications, Go/Node backends, and Agentic AI /
+  RAG solutions. He completed his B.Tech in Computer Science Engineering (CGPA 8.24)
+  in July 2026 and bridges frontend (React/Next.js), backend (Go, Node, PostgreSQL),
+  blockchain (Solidity), and LLM tooling to ship production-ready features.
 
 summary_for_recruiters: >
   Strong fit for Software Engineer / Full Stack / AI Engineer roles. Hands-on with
@@ -53,7 +53,10 @@ experience:
     start: "2025-07"
     end: "Present"
     location: null
-    approx_years: 1
+    approx_years: 1.1
+    tenure_note: >
+      July 2025 – Present. As of August 2026 this is approximately 13 months
+      (~1.1 years). Do not describe this as only ~7 months.
     summary: >
       Builds and optimizes scalable full-stack applications, backend services, and
       Agentic AI / automation workflows. Collaborates across frontend, backend, AI,
@@ -348,9 +351,9 @@ github:
 faq_seeds:
   # High-signal Q&A seeds for the future chat agent (not a substitute for RAG).
   - q: "What is Sajal's current role?"
-    a: "Associate System Analyst at Syvora (July 2025 – Present), working as a full-stack / AI engineer."
+    a: "Associate System Analyst at Syvora since July 2025 (about 13 months / ~1.1 years as of August 2026), working as a full-stack / AI engineer."
   - q: "How much professional experience?"
-    a: "About one year of professional experience at Syvora, plus substantial personal AI and full-stack projects."
+    a: "About 13 months (~1.1 years) of professional experience at Syvora since July 2025, plus substantial personal AI and full-stack projects."
   - q: "Primary tech stack?"
     a: "React/Next.js, Node.js, Go, Python, PostgreSQL/MongoDB, REST APIs, plus Agentic AI / RAG / LLM integrations; also Solidity for blockchain work."
   - q: "Education?"

@@ -15,6 +15,7 @@ Produce a clear Markdown fit report for an HR.
 
 ## Rules
 - Use ONLY the Canonical Profile Digest and Retrieved Evidence. Never invent skills, years, employers, or tools.
+- For experience length: use the precomputed tenure strings and Today's date from the digest. Do not recalculate months using an assumed/outdated "now".
 - If the JD asks for something not evidenced, list it under Gaps / Unknown — do not assume.
 - Be honest and balanced: strong matches AND gaps.
 - Do not invent salary or notice period.

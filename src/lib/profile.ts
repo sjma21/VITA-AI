@@ -17,6 +17,7 @@ const experienceSchema = z.object({
   end: z.string(),
   location: z.string().nullable().optional(),
   approx_years: z.number().optional(),
+  tenure_note: z.string().optional(),
   summary: z.string().optional(),
   tech: z.array(z.string()).default([]),
   highlights: z.array(z.string()).default([]),
