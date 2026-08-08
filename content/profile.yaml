@@ -1,7 +1,8 @@
 # Canonical profile for Vita (Layer 1 — always-on agent context).
-# Sources: UpdatedResume.pdf, Software Engineer Cover Letter.pdf,
+# Sources: content/resume.pdf (Sajal_Mishra_Resume.pdf), content/cover-letter.pdf,
 # https://www.linkedin.com/in/sajal-mishra20/, https://github.com/sjma21
 # Keep facts accurate; prefer metrics and production details when known.
+# Note: resume PDF may still say education "Present"; canonical end date is 2026-07 (graduated).
 
 identity:
   name: "Sajal Mishra"
@@ -60,49 +61,55 @@ experience:
     tech:
       - React.js
       - Next.js
+      - TypeScript
+      - Node.js
       - Go (Golang)
       - Python
-      - Node.js
       - PostgreSQL
+      - Prisma
       - MongoDB
       - REST APIs
       - LLMs
+      - RAG
       - Agentic AI / tool-calling
+      - MCP
       - OpenClaw AI
       - Blockchain / smart contracts
     highlights:
       - >
-        Built end-to-end full-stack applications using React.js, Go (Golang), Python,
-        PostgreSQL, and REST APIs, delivering scalable and high-performance solutions.
+        Built and maintained end-to-end full-stack applications using React.js,
+        Next.js, TypeScript, Node.js, Go (Golang), Python, PostgreSQL, Prisma,
+        and REST APIs, delivering scalable, high-performance solutions.
       - >
-        Developed Agentic AI solutions and automation workflows in Python using LLMs,
-        AI orchestration, and tool-calling to streamline engineering processes.
+        Developed Agentic AI applications using Python, LLM APIs, RAG, tool-calling,
+        MCP, and workflow orchestration, enabling intelligent automation and
+        AI-powered engineering workflows.
       - >
-        Engineered scalable backend services and APIs in Go with clean architecture,
-        performance optimization, and maintainable code.
+        Engineered scalable backend services in Go and Node.js, implementing clean
+        architecture, authentication, caching, asynchronous processing, and
+        performance optimizations.
       - >
-        Designed and implemented an AI-powered onboarding and training platform using
-        OpenClaw AI, automating employee onboarding and reducing manual effort.
+        Designed and implemented an AI-powered onboarding and training platform
+        using OpenClaw AI, automating employee onboarding, knowledge delivery,
+        progress tracking, and reducing manual effort.
       - >
-        Contributed to blockchain and smart contract development while collaborating
-        across frontend, backend, and AI systems to ship production-ready features.
-      - >
-        Worked with Generative AI, AI agents, Retrieval-Augmented Generation (RAG),
-        workflow automation, and integrating Large Language Models into real-world apps
-        (as described in professional cover letter).
+        Contributed to blockchain and distributed systems projects by developing
+        smart contract integrations, backend APIs, and frontend features while
+        collaborating across AI, backend, and frontend teams to deliver
+        production-ready solutions.
 
 projects:
-  - name: "HirePrep AI"
-    period: "2026-03 — 2026-04"
-    github: "https://github.com/sjma21/Hire-Prep-AI"
+  - name: "Veritas AI"
+    period: "2026-05 — 2026-06"
+    github: "https://github.com/sjma21/Veritas-AI"
     summary: >
-      AI-powered full-stack interview platform with real-time question generation,
-      evaluation, voice interactions, and an in-browser coding environment.
-    tech: [React, TypeScript, Node.js, LLM APIs, STT/TTS]
+      Production-grade AI agent platform with RAG, ReAct tool calling, conversational
+      memory, and SSE streaming for real-time AI interactions.
+    tech: [Node.js, TypeScript, Express, LLM APIs, RAG, MCP, SSE]
     highlights:
-      - "Real-time AI question generation and evaluation via LLM APIs"
-      - "Voice interactions (STT/TTS) with timed workflows, scoring, hints, and feedback"
-      - "In-browser coding environment with AI-based code analysis"
+      - "RAG, ReAct tool calling, conversational memory, and SSE streaming"
+      - "Semantic search, citation verification, caching, and MCP integration"
+      - "Guardrails, image ingestion, and observability for reliable AI responses"
 
   - name: "FinCore"
     period: "2026-04"
@@ -116,16 +123,17 @@ projects:
       - "JWT authentication and role-based access control"
       - "Transaction management, validation, and rate limiting"
 
-  - name: "Veritas AI"
-    period: null
-    github: "https://github.com/sjma21/Veritas-AI"
+  - name: "HirePrep AI"
+    period: "2026-03 — 2026-04"
+    github: "https://github.com/sjma21/Hire-Prep-AI"
     summary: >
-      Multi-turn AI agent system with RAG, tool use, conversational memory,
-      streaming, citation verification, and an evaluation framework.
-    tech: [TypeScript, RAG, Agents, Streaming]
+      AI-powered full-stack interview platform with real-time question generation,
+      evaluation, voice interactions, and an in-browser coding environment.
+    tech: [React, TypeScript, Node.js, LLM APIs, STT/TTS]
     highlights:
-      - "Retrieval-augmented generation with citation verification"
-      - "Tool use, memory, streaming, and evaluation framework"
+      - "Real-time AI question generation and evaluation via LLM APIs"
+      - "Voice interactions (STT/TTS) with timed workflows, scoring, hints, and feedback"
+      - "In-browser coding environment with AI-based code analysis"
 
   - name: "Meeting Mind"
     period: null
@@ -232,7 +240,10 @@ skills:
     - name: "PostgreSQL / SQL"
       level: "strong"
       used_in_production: true
-    - name: "Agentic AI / LLMs / RAG"
+    - name: "Prisma"
+      level: "strong"
+      used_in_production: true
+    - name: "Agentic AI / LLMs / RAG / MCP"
       level: "strong"
       used_in_production: true
   secondary:
@@ -248,9 +259,6 @@ skills:
     - name: "NestJS"
       level: "familiar"
       used_in_production: false
-    - name: "Prisma"
-      level: "proficient"
-      used_in_production: true
   tools:
     - "Git / GitHub"
     - "REST APIs"
@@ -260,6 +268,7 @@ skills:
     - "Vite"
     - "OpenRouter"
     - "Redis"
+    - "MCP"
     - "MetaMask"
     - "Docker (local Postgres / app workflows)"
     - "n8n workflows"
@@ -347,7 +356,7 @@ faq_seeds:
   - q: "Education?"
     a: "B.Tech CSE from Acropolis Institute of Technology and Research, Indore (CGPA 8.24), graduated July 2026; Class XII PCM 92.8%, school Rank 1."
   - q: "Notable projects?"
-    a: "HirePrep AI, FinCore, Veritas AI, Meeting Mind, AI Trade Bot, Rag-Agent, plus Syvora production work including an OpenClaw AI onboarding/training platform."
+    a: "Veritas AI, FinCore, HirePrep AI, Meeting Mind, AI Trade Bot, Rag-Agent, plus Syvora production work including an OpenClaw AI onboarding/training platform."
   - q: "Where is he based?"
     a: "Bhopal, India. Contact: sajalmishra361@gmail.com. GitHub sjma21. LinkedIn sajal-mishra20."
 

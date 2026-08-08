@@ -58,7 +58,7 @@ export async function ingestResume(): Promise<{
   chunks.push(
     ...chunkText(resumeText, {
       sourceRefPrefix: "resume",
-      metadata: { file: "resume.pdf" },
+      metadata: { file: "resume.pdf", label: "Sajal_Mishra_Resume.pdf" },
     }),
   );
 

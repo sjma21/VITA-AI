@@ -6,7 +6,7 @@ export async function GET() {
   return new Response(file, {
     headers: {
       "Content-Type": "application/pdf",
-      "Content-Disposition": 'inline; filename="Sajal-Mishra-Resume.pdf"',
+      "Content-Disposition": 'inline; filename="Sajal_Mishra_Resume.pdf"',
       "Cache-Control": "public, max-age=3600",
     },
   });
