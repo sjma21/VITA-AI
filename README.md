@@ -53,7 +53,15 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## Ingest
+## Chat (Phase 2)
+
+```bash
+pnpm db:up
+pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) and ask recruiter questions.
+Requires `ANTHROPIC_API_KEY` + `OPENROUTER_API_KEY` in `.env` (and ingested chunks via `pnpm ingest:all`).
 
 | Script | Purpose |
 |--------|---------|
@@ -98,9 +106,9 @@ docker-compose.yml
 ## Phases
 
 0. Foundation — done  
-1. Context pipeline — in progress  
-2. Chat agent (RAG + streaming)  
-3. HR UI  
+1. Context pipeline — done  
+2. Chat agent (RAG + streaming) — done (UI polish in Phase 3)  
+3. HR UI polish  
 4. Harden & ship  
 
 ## License
