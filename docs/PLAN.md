@@ -129,6 +129,7 @@ LinkedIn ToS forbids scraping. Production approach:
 
 - Hero: your name + one-line pitch + CTA “Ask about my experience”
 - Claude-like chat: streaming responses, suggested starter questions, source chips
+- **Match JD mode:** paste a job description → grounded fit report (skills match, gaps, score, interview focus)
 - Footer: resume PDF download, LinkedIn, GitHub, email
 - Optional soft gate: share PIN / “company name” field (anti-spam, not heavy auth)
 

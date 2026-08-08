@@ -61,6 +61,7 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) and ask recruiter questions.
+Use **Match JD** to paste a job description and get a grounded fit report.
 Requires `ANTHROPIC_API_KEY` + `OPENROUTER_API_KEY` in `.env` (and ingested chunks via `pnpm ingest:all`).
 
 | Script | Purpose |

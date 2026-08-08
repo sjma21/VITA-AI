@@ -1,4 +1,4 @@
-import { ChatPanel } from "@/components/chat-panel";
+import { Workspace } from "@/components/workspace";
 import { loadProfile } from "@/lib/profile";
 
 export default function Home() {
@@ -21,8 +21,8 @@ export default function Home() {
               {identity.title}
             </p>
             <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
-              Your living resume. Let recruiters ask — grounded answers from
-              profile, resume, and GitHub.
+              Ask about experience — or paste a job description to check fit
+              against profile, resume, and GitHub.
             </p>
           </div>
 
@@ -74,7 +74,7 @@ export default function Home() {
         </header>
 
         <div className="vita-animate-fade-up vita-delay-2 flex min-h-0 flex-1 flex-col">
-          <ChatPanel candidateName={identity.name} />
+          <Workspace candidateName={identity.name} />
         </div>
       </main>
     </div>
