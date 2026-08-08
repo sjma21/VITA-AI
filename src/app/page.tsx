@@ -1,56 +1,81 @@
 import { ChatPanel } from "@/components/chat-panel";
-import { Button } from "@/components/ui/button";
+import { loadProfile } from "@/lib/profile";
 
 export default function Home() {
+  const profile = loadProfile();
+  const { identity } = profile;
+
   return (
-    <div className="relative flex flex-1 flex-col overflow-hidden">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_oklch(0.95_0.02_250),_transparent_55%),linear-gradient(to_bottom,_var(--background),_oklch(0.97_0.01_240))]"
-      />
-      <main className="relative z-10 mx-auto flex w-full max-w-3xl flex-1 flex-col gap-8 px-6 py-12 sm:py-16">
-        <header className="flex flex-col gap-4">
-          <p className="text-sm font-medium tracking-[0.2em] text-muted-foreground uppercase">
+    <div className="relative flex flex-1 flex-col">
+      <main className="relative z-10 mx-auto flex w-full max-w-3xl flex-1 flex-col px-5 pb-10 pt-10 sm:px-6 sm:pt-14">
+        <header className="vita-animate-fade-up mb-8 flex flex-col gap-5">
+          <p className="font-heading text-3xl tracking-tight text-vita-teal sm:text-4xl">
             Vita
           </p>
-          <h1 className="font-heading text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-            Sajal Mishra
-            <span className="mt-2 block text-xl font-normal text-muted-foreground sm:text-2xl">
-              Your living resume. Let recruiters ask.
-            </span>
-          </h1>
-          <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
-            Ask about tech stack, Syvora experience, AI projects, education, or
-            GitHub work — answers are grounded in profile, resume, and repos.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Button variant="outline" asChild>
-              <a
-                href="https://www.linkedin.com/in/sajal-mishra20/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                LinkedIn
-              </a>
-            </Button>
-            <Button variant="outline" asChild>
-              <a
-                href="https://github.com/sjma21"
-                target="_blank"
-                rel="noreferrer"
-              >
-                GitHub
-              </a>
-            </Button>
-            <Button variant="outline" asChild>
-              <a href="/api/resume" target="_blank" rel="noreferrer">
-                Resume PDF
-              </a>
-            </Button>
+
+          <div className="flex flex-col gap-3">
+            <h1 className="font-heading text-4xl leading-[1.1] tracking-tight text-foreground sm:text-5xl">
+              {identity.name}
+            </h1>
+            <p className="max-w-xl text-lg text-muted-foreground sm:text-xl">
+              {identity.title}
+            </p>
+            <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
+              Your living resume. Let recruiters ask — grounded answers from
+              profile, resume, and GitHub.
+            </p>
           </div>
+
+          <nav
+            aria-label="Profile links"
+            className="vita-animate-fade-up vita-delay-1 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm"
+          >
+            <a
+              className="font-medium text-vita-teal underline-offset-4 transition hover:underline"
+              href={identity.links.linkedin}
+              target="_blank"
+              rel="noreferrer"
+            >
+              LinkedIn
+            </a>
+            <a
+              className="font-medium text-vita-teal underline-offset-4 transition hover:underline"
+              href={identity.links.github}
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+            </a>
+            {identity.links.portfolio ? (
+              <a
+                className="font-medium text-vita-teal underline-offset-4 transition hover:underline"
+                href={identity.links.portfolio}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Portfolio
+              </a>
+            ) : null}
+            <a
+              className="font-medium text-vita-teal underline-offset-4 transition hover:underline"
+              href="/api/resume"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Resume PDF
+            </a>
+            <a
+              className="font-medium text-muted-foreground underline-offset-4 transition hover:text-foreground hover:underline"
+              href={`mailto:${identity.email}`}
+            >
+              Email
+            </a>
+          </nav>
         </header>
 
-        <ChatPanel />
+        <div className="vita-animate-fade-up vita-delay-2 flex min-h-0 flex-1 flex-col">
+          <ChatPanel candidateName={identity.name} />
+        </div>
       </main>
     </div>
   );

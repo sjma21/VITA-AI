@@ -107,8 +107,8 @@ docker-compose.yml
 
 0. Foundation — done  
 1. Context pipeline — done  
-2. Chat agent (RAG + streaming) — done (UI polish in Phase 3)  
-3. HR UI polish  
+2. Chat agent (RAG + streaming) — done  
+3. HR UI polish — done  
 4. Harden & ship  
 
 ## License

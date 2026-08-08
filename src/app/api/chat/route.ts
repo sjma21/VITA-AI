@@ -109,13 +109,18 @@ export async function POST(req: Request) {
   return result.toUIMessageStreamResponse({
     headers: {
       "x-conversation-id": conversationId,
-      "x-vita-citations": JSON.stringify(
-        evidence.map((e) => ({
-          source: e.source,
-          sourceRef: e.sourceRef,
-          score: Number(e.score.toFixed(3)),
-        })),
-      ),
+    },
+    messageMetadata: ({ part }) => {
+      if (part.type === "start" || part.type === "finish") {
+        return {
+          citations: evidence.map((e) => ({
+            source: e.source,
+            sourceRef: e.sourceRef,
+            score: Number(e.score.toFixed(3)),
+          })),
+        };
+      }
+      return undefined;
     },
   });
 }
