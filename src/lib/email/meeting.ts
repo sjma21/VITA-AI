@@ -20,7 +20,25 @@ function getOwnerEmail() {
 }
 
 function getFromEmail() {
-  return process.env.RESEND_FROM_EMAIL?.trim() || "Vita <onboarding@resend.dev>";
+  const configured = process.env.RESEND_FROM_EMAIL?.trim();
+  const fallback = "Vita <onboarding@resend.dev>";
+  if (!configured) return fallback;
+
+  const address = configured.includes("<")
+    ? configured.slice(configured.indexOf("<") + 1, configured.indexOf(">"))
+    : configured;
+  const domain = address.split("@")[1]?.toLowerCase() ?? "";
+
+  // Resend cannot send FROM public mailbox domains (gmail, yahoo, etc.).
+  const blocked = ["gmail.com", "googlemail.com", "yahoo.com", "outlook.com", "hotmail.com"];
+  if (blocked.includes(domain)) {
+    console.warn(
+      `RESEND_FROM_EMAIL uses blocked domain @${domain}; falling back to onboarding@resend.dev`,
+    );
+    return fallback;
+  }
+
+  return configured;
 }
 
 export async function sendMeetingRequestEmails(input: MeetingMailInput): Promise<{
