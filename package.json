@@ -12,7 +12,12 @@
     "db:migrate": "prisma migrate deploy",
     "db:migrate:dev": "prisma migrate dev",
     "db:generate": "prisma generate",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "ingest:docs": "tsx --env-file=.env scripts/ingest-docs.ts",
+    "ingest:profile": "tsx --env-file=.env scripts/ingest-docs.ts profile",
+    "ingest:resume": "tsx --env-file=.env scripts/ingest-docs.ts resume",
+    "ingest:github": "tsx --env-file=.env scripts/ingest-github.ts",
+    "ingest:all": "tsx --env-file=.env scripts/ingest-all.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
@@ -20,22 +25,28 @@
     "clsx": "^2.1.1",
     "lucide-react": "^1.30.0",
     "next": "16.3.0",
+    "openai": "^7.4.0",
+    "pdf-parse": "^2.4.5",
     "radix-ui": "^1.6.7",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "shadcn": "^4.16.2",
     "tailwind-merge": "^3.6.0",
-    "tw-animate-css": "^1.4.0"
+    "tw-animate-css": "^1.4.0",
+    "yaml": "^2.9.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pdf-parse": "^1.1.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.0",
     "prisma": "^6.19.3",
     "tailwindcss": "^4",
+    "tsx": "^4.23.11",
     "typescript": "^5"
   },
   "packageManager": "pnpm@9.15.9"
