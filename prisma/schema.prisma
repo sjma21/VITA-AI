@@ -73,3 +73,21 @@ model Event {
   @@index([createdAt])
   @@map("events")
 }
+
+model MeetingRequest {
+  id            String   @id @default(cuid())
+  hrName        String
+  hrEmail       String
+  company       String?
+  preferredTime String
+  timezone      String?
+  agenda        String
+  status        String   @default("pending") // pending | emailed | failed
+  emailError    String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([hrEmail])
+  @@index([createdAt])
+  @@map("meeting_requests")
+}

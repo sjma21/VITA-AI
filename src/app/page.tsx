@@ -21,8 +21,8 @@ export default function Home() {
               {identity.title}
             </p>
             <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
-              Ask about experience — or paste a job description to check fit
-              against profile, resume, and GitHub.
+              Ask about experience, match a JD, or book a call — grounded in
+              profile, resume, and GitHub.
             </p>
           </div>
 
