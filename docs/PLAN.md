@@ -67,7 +67,7 @@ A hand-maintained, versioned source of truth (YAML/JSON), e.g. `content/profile.
 
 - Upload/store your resume PDF under `content/resume.pdf` (or admin ingest)
 - Parse → clean text → **semantic chunking** (by section: Experience, Projects, Skills; ~400–800 tokens, overlap ~80)
-- Embed with OpenAI `text-embedding-3-small` (or compatible)
+- Embed with OpenRouter free embedding model `nvidia/nemotron-3-embed-1b:free` (2048 dims; OpenAI-compatible API)
 - Store in **Postgres + pgvector** (production-friendly, one DB, cheap for single-user)
 - At query time: embed HR question → top-k chunks → inject as retrieved evidence
 
@@ -110,11 +110,11 @@ LinkedIn ToS forbids scraping. Production approach:
 |-------|--------|
 | App | **Next.js 15 (App Router) + TypeScript** |
 | UI | Tailwind + shadcn/ui; Claude-like chat (streaming bubbles, markdown) |
-| LLM | **Anthropic Claude** (primary) with OpenAI as optional fallback |
-| Embeddings | OpenAI `text-embedding-3-small` |
+| LLM | **Anthropic Claude** (chat, Phase 2) |
+| Embeddings | **OpenRouter** `nvidia/nemotron-3-embed-1b:free` (2048-dim; OpenAI-compatible `/embeddings`) |
 | ORM | **Prisma** |
 | Vector + app DB | **PostgreSQL + pgvector** (extension inside Postgres — not a separate product) |
-| Dev DB | Local Postgres via Docker (pgvector image) |
+| Dev DB | Local Postgres via Docker (pgvector image) on **host port 5433** (avoids clash with local Postgres on 5432) |
 | Prod DB | Any hosted Postgres with pgvector enabled (you choose later: Neon, Railway, self-host, etc.) |
 | Auth | Public HR chat; **owner admin** via simple password / magic link (NextAuth or Clerk lite) |
 | Ingest | Server actions / API routes + optional cron (Vercel cron) for GitHub re-sync |

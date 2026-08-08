@@ -6,7 +6,7 @@ services:
     container_name: vita-db
     restart: unless-stopped
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
       POSTGRES_USER: vita
       POSTGRES_PASSWORD: vita

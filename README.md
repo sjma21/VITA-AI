@@ -6,18 +6,23 @@ Personal AI resume chatbot for HRs — grounded answers from your profile, resum
 
 See [docs/PLAN.md](docs/PLAN.md) for the full product plan.
 
-## Stack (Phase 0)
+## Stack
 
 - Next.js 16 (App Router) + TypeScript
 - Tailwind CSS + shadcn/ui
 - Prisma + PostgreSQL + pgvector
-- Docker Compose for local Postgres
+- Docker Compose for local Postgres (**host port 5433** — avoids clashing with local Postgres on 5432)
+- Embeddings via **OpenRouter** (`nvidia/nemotron-3-embed-1b:free`, 2048 dims)
+- Chat LLM (Phase 2): Anthropic Claude
 
 ## Prerequisites
 
 - Node 20+
 - [pnpm](https://pnpm.io)
 - Docker Desktop running (for local Postgres)
+- [OpenRouter API key](https://openrouter.ai/keys) (embeddings)
+- Anthropic API key (chat — Phase 2)
+- GitHub personal access token (read-only) for repo ingest
 
 ## Setup
 
@@ -25,8 +30,10 @@ See [docs/PLAN.md](docs/PLAN.md) for the full product plan.
 # Install deps
 pnpm install
 
-# Copy env
+# Copy env and fill keys
 cp .env.example .env
+# Required for ingest: OPENROUTER_API_KEY, GITHUB_TOKEN, GITHUB_USERNAME
+# DATABASE_URL should use port 5433 (see .env.example)
 
 # Start Postgres with pgvector
 pnpm db:up
@@ -37,11 +44,33 @@ pnpm db:migrate
 # Generate Prisma Client
 pnpm db:generate
 
+# Ingest profile + resume/cover letter + GitHub allowlist
+pnpm ingest:all
+
 # Dev server
 pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+## Ingest
+
+| Script | Purpose |
+|--------|---------|
+| `pnpm ingest:profile` | Embed `content/profile.yaml` blocks |
+| `pnpm ingest:resume` | Embed resume + cover letter PDFs |
+| `pnpm ingest:docs` | Profile + resume |
+| `pnpm ingest:github` | Embed allowlisted GitHub repos |
+| `pnpm ingest:all` | Everything above |
+
+HTTP (protected by `x-ingest-secret` = `INGEST_SECRET`):
+
+```bash
+curl -X POST 'http://localhost:3000/api/ingest?target=all' \
+  -H "x-ingest-secret: $INGEST_SECRET"
+```
+
+`target` can be `all` | `profile` | `resume` | `github`.
 
 ## Scripts
 
@@ -57,18 +86,19 @@ Open [http://localhost:3000](http://localhost:3000).
 ## Project layout
 
 ```
-content/          # profile.yaml (+ resume.pdf later)
+content/          # profile.yaml, resume.pdf, cover-letter.pdf
 docs/PLAN.md      # product plan
 prisma/           # schema + migrations (incl. pgvector)
-src/app/          # Next.js App Router
-src/lib/db.ts     # Prisma client singleton
+scripts/          # ingest CLI
+src/app/          # Next.js App Router + /api/ingest
+src/lib/          # profile, rag, ingest, db
 docker-compose.yml
 ```
 
 ## Phases
 
-0. Foundation (this commit)  
-1. Context pipeline (profile / resume / GitHub ingest)  
+0. Foundation — done  
+1. Context pipeline — in progress  
 2. Chat agent (RAG + streaming)  
 3. HR UI  
 4. Harden & ship  

@@ -24,8 +24,8 @@ model Chunk {
   /// e.g. "resume:Experience" or "github:my-repo"
   sourceRef String?
   content   String
-  /// OpenAI text-embedding-3-small → 1536 dimensions
-  embedding Unsupported("vector(1536)")?
+  /// OpenRouter nvidia/nemotron-3-embed-1b:free → 2048 dimensions
+  embedding Unsupported("vector(2048)")?
   metadata  Json?
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
