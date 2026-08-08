@@ -62,7 +62,7 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) and ask recruiter questions.
 Use **Match JD** to paste a job description and get a grounded fit report.
-Use **Book a call** so HRs can request a meeting (emails `OWNER_EMAIL` via Resend).
+Use **Book a call** so HRs can request a meeting (emails only `OWNER_EMAIL` via Resend — no HR auto-reply).
 Requires `ANTHROPIC_API_KEY` + `OPENROUTER_API_KEY` in `.env` (and ingested chunks via `pnpm ingest:all`).
 For meeting emails, set `RESEND_API_KEY` and `OWNER_EMAIL=sajalmishra361@gmail.com`.
 

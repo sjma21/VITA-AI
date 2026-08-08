@@ -91,10 +91,10 @@ export function MeetingRequestPanel({
     >
       <div className="border-b border-border/80 px-4 py-3.5 sm:px-5">
         <p className="text-sm font-semibold tracking-tight">Book a call</p>
-        <p className="text-xs text-muted-foreground">
-          Request a conversation with {candidateName}. You’ll get a follow-up by
-          email to confirm timing.
-        </p>
+          <p className="text-xs text-muted-foreground">
+            Request a conversation with {candidateName}. Your details are sent
+            to Sajal — he’ll follow up by email to confirm timing.
+          </p>
       </div>
 
       <form
