@@ -1,0 +1,75 @@
+// Vita — Prisma schema
+// Embeddings live in Postgres via the pgvector extension (Unsupported vector column).
+// Similarity search uses $queryRaw in later phases.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ChunkSource {
+  resume
+  github
+  linkedin
+  profile
+}
+
+model Chunk {
+  id        String      @id @default(cuid())
+  source    ChunkSource
+  /// e.g. "resume:Experience" or "github:my-repo"
+  sourceRef String?
+  content   String
+  /// OpenAI text-embedding-3-small → 1536 dimensions
+  embedding Unsupported("vector(1536)")?
+  metadata  Json?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  @@index([source])
+  @@map("chunks")
+}
+
+model Conversation {
+  id        String    @id @default(cuid())
+  visitorId String?
+  company   String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[]
+  events    Event[]
+
+  @@map("conversations")
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  /// user | assistant | system
+  role           String
+  content        String
+  citations      Json?
+  createdAt      DateTime     @default(now())
+
+  @@index([conversationId])
+  @@map("messages")
+}
+
+model Event {
+  id             String        @id @default(cuid())
+  conversationId String?
+  conversation   Conversation? @relation(fields: [conversationId], references: [id], onDelete: SetNull)
+  /// e.g. chat_question | ingest_resume | ingest_github
+  type           String
+  payload        Json?
+  createdAt      DateTime      @default(now())
+
+  @@index([type])
+  @@index([createdAt])
+  @@map("events")
+}

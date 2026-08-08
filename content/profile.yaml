@@ -1,0 +1,39 @@
+# Canonical profile — Layer 1 context (always available to the agent).
+# Fill this in before Phase 1 ingest. Hard facts should live here.
+
+identity:
+  name: "Your Name"
+  title: "Software Engineer"
+  location: "City, Country"
+  email: "you@example.com"
+  links:
+    portfolio: ""
+    linkedin: ""
+    github: ""
+
+pitch: >
+  Short elevator pitch for recruiters (2–3 sentences).
+
+experience: []
+# - company: Acme
+#   role: Software Engineer
+#   start: "2022-01"
+#   end: "Present"
+#   highlights:
+#     - "Shipped X that improved Y by Z%"
+
+skills:
+  primary: []
+  secondary: []
+  tools: []
+
+education: []
+
+guardrails:
+  decline_topics:
+    - personal_life
+  # salary_expectations: optional — set policy later
+
+github:
+  # Repos to ingest (allowlist). Empty = use pinned / configure later.
+  allowlist: []

@@ -1,0 +1,23 @@
+# Local Postgres with pgvector for Vita development.
+# Usage: docker compose up -d
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: vita-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: vita
+      POSTGRES_PASSWORD: vita
+      POSTGRES_DB: vita
+    volumes:
+      - vita_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vita -d vita"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  vita_pgdata:
