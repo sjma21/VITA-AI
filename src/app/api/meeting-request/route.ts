@@ -90,8 +90,12 @@ export async function POST(req: Request) {
       ok: true,
       id: record.id,
       emailed: mail.emailed,
-      message: mail.emailed
-        ? "Request sent. Sajal will follow up by email to confirm the call."
+      ownerEmailed: mail.ownerEmailed,
+      hrEmailed: mail.hrEmailed,
+      message: mail.ownerEmailed
+        ? mail.hrEmailed
+          ? "Request sent. Sajal and the HR both got email notifications."
+          : "Request received — Sajal was emailed. Reply to the HR to confirm the call (auto HR confirmation needs a verified Resend domain)."
         : "Request saved. Email delivery is not configured yet — Sajal can still see it in the database.",
       warning: mail.error,
     });

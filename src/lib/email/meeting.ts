@@ -43,6 +43,8 @@ function getFromEmail() {
 
 export async function sendMeetingRequestEmails(input: MeetingMailInput): Promise<{
   emailed: boolean;
+  ownerEmailed: boolean;
+  hrEmailed: boolean;
   ownerMessageId?: string;
   hrMessageId?: string;
   error?: string;
@@ -51,6 +53,8 @@ export async function sendMeetingRequestEmails(input: MeetingMailInput): Promise
   if (!apiKey) {
     return {
       emailed: false,
+      ownerEmailed: false,
+      hrEmailed: false,
       error: "RESEND_API_KEY is not configured — request saved in database only",
     };
   }
@@ -99,7 +103,28 @@ ${profile.identity.email}
     });
 
     if (ownerResult.error) {
-      return { emailed: false, error: ownerResult.error.message };
+      return {
+        emailed: false,
+        ownerEmailed: false,
+        hrEmailed: false,
+        error: ownerResult.error.message,
+      };
+    }
+
+    // Resend test mode (onboarding@resend.dev) can only email the account owner.
+    // Skip HR confirmation when HR email isn't the owner — avoids noisy 403s.
+    const hrIsOwner =
+      input.hrEmail.trim().toLowerCase() === ownerEmail.trim().toLowerCase();
+
+    if (!hrIsOwner && from.includes("onboarding@resend.dev")) {
+      return {
+        emailed: true,
+        ownerEmailed: true,
+        hrEmailed: false,
+        ownerMessageId: ownerResult.data?.id,
+        error:
+          "Sajal was notified. HR auto-confirmation is skipped in Resend test mode (can only email your own address). Verify a domain at resend.com/domains to email external HRs automatically.",
+      };
     }
 
     const hrResult = await resend.emails.send({
@@ -110,23 +135,28 @@ ${profile.identity.email}
       text: hrText,
     });
 
-    // Owner email succeeded; HR confirmation may fail on free Resend without domain.
     if (hrResult.error) {
       return {
         emailed: true,
+        ownerEmailed: true,
+        hrEmailed: false,
         ownerMessageId: ownerResult.data?.id,
-        error: `Owner notified; HR confirmation failed: ${hrResult.error.message}`,
+        error: `Sajal was notified. HR confirmation email failed: ${hrResult.error.message}`,
       };
     }
 
     return {
       emailed: true,
+      ownerEmailed: true,
+      hrEmailed: true,
       ownerMessageId: ownerResult.data?.id,
       hrMessageId: hrResult.data?.id,
     };
   } catch (err) {
     return {
       emailed: false,
+      ownerEmailed: false,
+      hrEmailed: false,
       error: err instanceof Error ? err.message : "Failed to send email",
     };
   }
