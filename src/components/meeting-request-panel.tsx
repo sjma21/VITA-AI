@@ -49,12 +49,23 @@ export function MeetingRequestPanel({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      const data = (await res.json()) as {
+
+      const raw = await res.text();
+      let data: {
         ok?: boolean;
         error?: string;
         message?: string;
         warning?: string;
-      };
+      } = {};
+      try {
+        data = raw ? (JSON.parse(raw) as typeof data) : {};
+      } catch {
+        throw new Error(
+          res.ok
+            ? "Unexpected server response"
+            : `Server error (${res.status}). Restart pnpm dev and try again.`,
+        );
+      }
 
       if (!res.ok || !data.ok) {
         throw new Error(data.error || "Could not submit meeting request");

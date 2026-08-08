@@ -14,74 +14,97 @@ const bodySchema = z.object({
 });
 
 export async function POST(req: Request) {
-  let json: unknown;
   try {
-    json = await req.json();
-  } catch {
-    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
-  }
+    let json: unknown;
+    try {
+      json = await req.json();
+    } catch {
+      return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    }
 
-  const parsed = bodySchema.safeParse(json);
-  if (!parsed.success) {
+    const parsed = bodySchema.safeParse(json);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "Invalid form data", details: parsed.error.flatten() },
+        { status: 400 },
+      );
+    }
+
+    const data = parsed.data;
+    const id = createId();
+
+    if (!prisma.meetingRequest) {
+      return NextResponse.json(
+        {
+          error:
+            "Database client is outdated. Restart the Next.js dev server (pnpm dev) and try again.",
+        },
+        { status: 503 },
+      );
+    }
+
+    const record = await prisma.meetingRequest.create({
+      data: {
+        id,
+        hrName: data.hrName,
+        hrEmail: data.hrEmail.toLowerCase(),
+        company: data.company || null,
+        preferredTime: data.preferredTime,
+        timezone: data.timezone || null,
+        agenda: data.agenda,
+        status: "pending",
+      },
+    });
+
+    const mail = await sendMeetingRequestEmails({
+      requestId: record.id,
+      hrName: data.hrName,
+      hrEmail: data.hrEmail,
+      company: data.company || undefined,
+      preferredTime: data.preferredTime,
+      timezone: data.timezone || undefined,
+      agenda: data.agenda,
+    });
+
+    await prisma.meetingRequest.update({
+      where: { id: record.id },
+      data: {
+        status: mail.emailed ? "emailed" : "failed",
+        emailError: mail.error ?? null,
+      },
+    });
+
+    await prisma.event.create({
+      data: {
+        type: "meeting_request",
+        payload: {
+          id: record.id,
+          hrEmail: data.hrEmail,
+          emailed: mail.emailed,
+          error: mail.error ?? null,
+        },
+      },
+    });
+
+    return NextResponse.json({
+      ok: true,
+      id: record.id,
+      emailed: mail.emailed,
+      message: mail.emailed
+        ? "Request sent. Sajal will follow up by email to confirm the call."
+        : "Request saved. Email delivery is not configured yet — Sajal can still see it in the database.",
+      warning: mail.error,
+    });
+  } catch (err) {
+    console.error("meeting-request failed", err);
     return NextResponse.json(
-      { error: "Invalid form data", details: parsed.error.flatten() },
-      { status: 400 },
+      {
+        error:
+          err instanceof Error
+            ? err.message
+            : "Could not submit meeting request",
+      },
+      { status: 500 },
     );
   }
-
-  const data = parsed.data;
-  const id = createId();
-
-  const record = await prisma.meetingRequest.create({
-    data: {
-      id,
-      hrName: data.hrName,
-      hrEmail: data.hrEmail.toLowerCase(),
-      company: data.company || null,
-      preferredTime: data.preferredTime,
-      timezone: data.timezone || null,
-      agenda: data.agenda,
-      status: "pending",
-    },
-  });
-
-  const mail = await sendMeetingRequestEmails({
-    requestId: record.id,
-    hrName: data.hrName,
-    hrEmail: data.hrEmail,
-    company: data.company || undefined,
-    preferredTime: data.preferredTime,
-    timezone: data.timezone || undefined,
-    agenda: data.agenda,
-  });
-
-  await prisma.meetingRequest.update({
-    where: { id: record.id },
-    data: {
-      status: mail.emailed ? "emailed" : "failed",
-      emailError: mail.error ?? null,
-    },
-  });
-
-  await prisma.event.create({
-    data: {
-      type: "meeting_request",
-      payload: {
-        id: record.id,
-        hrEmail: data.hrEmail,
-        emailed: mail.emailed,
-        error: mail.error ?? null,
-      },
-    },
-  });
-
-  return NextResponse.json({
-    ok: true,
-    id: record.id,
-    emailed: mail.emailed,
-    message: mail.emailed
-      ? "Request sent. Sajal will follow up by email to confirm the call."
-      : "Request saved. Email delivery is not configured yet — Sajal can still see it in the database.",
-    warning: mail.error,
-  });
 }
