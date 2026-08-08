@@ -1,7 +1,9 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { Button } from "@/components/ui/button";
 
 const STARTERS = [
@@ -20,6 +22,49 @@ function messageText(message: {
     .map((p) => p.text!)
     .join("\n");
 }
+
+const markdownComponents = {
+  h1: ({ children }: { children?: ReactNode }) => (
+    <h1 className="mb-2 text-base font-semibold">{children}</h1>
+  ),
+  h2: ({ children }: { children?: ReactNode }) => (
+    <h2 className="mb-2 mt-3 text-sm font-semibold">{children}</h2>
+  ),
+  h3: ({ children }: { children?: ReactNode }) => (
+    <h3 className="mb-1.5 mt-2.5 text-sm font-semibold">{children}</h3>
+  ),
+  p: ({ children }: { children?: ReactNode }) => (
+    <p className="mb-2 last:mb-0">{children}</p>
+  ),
+  ul: ({ children }: { children?: ReactNode }) => (
+    <ul className="mb-2 list-disc space-y-1 pl-5 last:mb-0">{children}</ul>
+  ),
+  ol: ({ children }: { children?: ReactNode }) => (
+    <ol className="mb-2 list-decimal space-y-1 pl-5 last:mb-0">{children}</ol>
+  ),
+  li: ({ children }: { children?: ReactNode }) => (
+    <li className="leading-relaxed">{children}</li>
+  ),
+  strong: ({ children }: { children?: ReactNode }) => (
+    <strong className="font-semibold">{children}</strong>
+  ),
+  a: ({ href, children }: { href?: string; children?: ReactNode }) => (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="underline underline-offset-2"
+    >
+      {children}
+    </a>
+  ),
+  hr: () => <hr className="my-3 border-border/70" />,
+  code: ({ children }: { children?: ReactNode }) => (
+    <code className="rounded bg-background/60 px-1 py-0.5 text-[0.85em]">
+      {children}
+    </code>
+  ),
+};
 
 export function ChatPanel() {
   const [input, setInput] = useState("");
@@ -97,13 +142,22 @@ export function ChatPanel() {
             className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
           >
             <div
-              className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${
+              className={`max-w-[90%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                 m.role === "user"
-                  ? "bg-primary text-primary-foreground"
+                  ? "bg-primary text-primary-foreground whitespace-pre-wrap"
                   : "bg-muted text-foreground"
               }`}
             >
-              {m.text}
+              {m.role === "assistant" ? (
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={markdownComponents}
+                >
+                  {m.text}
+                </ReactMarkdown>
+              ) : (
+                m.text
+              )}
             </div>
           </div>
         ))}
