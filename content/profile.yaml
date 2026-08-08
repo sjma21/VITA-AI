@@ -1,39 +1,368 @@
-# Canonical profile — Layer 1 context (always available to the agent).
-# Fill this in before Phase 1 ingest. Hard facts should live here.
+# Canonical profile for Vita (Layer 1 — always-on agent context).
+# Sources: UpdatedResume.pdf, Software Engineer Cover Letter.pdf,
+# https://www.linkedin.com/in/sajal-mishra20/, https://github.com/sjma21
+# Keep facts accurate; prefer metrics and production details when known.
 
 identity:
-  name: "Your Name"
-  title: "Software Engineer"
-  location: "City, Country"
-  email: "you@example.com"
+  name: "Sajal Mishra"
+  title: "Associate System Analyst — Full Stack AI Engineer"
+  headline: "Full-stack & Agentic AI engineer building scalable web, backend, and LLM-powered systems"
+  location: "Bhopal, India"
+  email: "sajalmishra361@gmail.com"
+  phone: "+91 9131033130"
   links:
-    portfolio: ""
-    linkedin: ""
-    github: ""
+    portfolio: "https://portfolio-one-fawn-47.vercel.app/"
+    linkedin: "https://www.linkedin.com/in/sajal-mishra20/"
+    github: "https://github.com/sjma21"
+    twitter: "https://www.x.com/saja69841"
+    medium: "https://www.medium.com/Sajalmishra"
 
 pitch: >
-  Short elevator pitch for recruiters (2–3 sentences).
+  Sajal Mishra is an Associate System Analyst and Full Stack AI Engineer at Syvora
+  with about one year of professional experience building scalable web applications,
+  Go/Node backends, and Agentic AI / RAG solutions. He is a final-year B.Tech CSE
+  student (CGPA 8.24) who bridges frontend (React/Next.js), backend (Go, Node,
+  PostgreSQL), blockchain (Solidity), and LLM tooling to ship production-ready features.
 
-experience: []
-# - company: Acme
-#   role: Software Engineer
-#   start: "2022-01"
-#   end: "Present"
-#   highlights:
-#     - "Shipped X that improved Y by Z%"
+summary_for_recruiters: >
+  Strong fit for Software Engineer / Full Stack / AI Engineer roles. Hands-on with
+  React.js, Next.js, Node.js, Golang, Python, PostgreSQL, MongoDB, REST APIs,
+  Generative AI, AI agents, RAG, workflow automation, and LLM integrations.
+  Comfortable owning end-to-end features across frontend, backend, and AI systems.
+  Completing B.Tech in Computer Science Engineering with solid fundamentals in
+  OOP, DBMS, networking, DSA, and system design.
+
+availability:
+  seeking:
+    - "Software Engineer"
+    - "Full Stack Developer"
+    - "AI / Agentic AI Engineer"
+    - "Backend Engineer (Go / Node)"
+  open_to: "Impactful product teams; AI agents and full-stack collaboration"
+  based_in: "India"
+  currently_learning:
+    - "Agentic AI"
+    - "Scalable full-stack systems"
+
+experience:
+  - company: "Syvora"
+    role: "Associate System Analyst"
+    employment_type: "Full-time"
+    start: "2025-07"
+    end: "Present"
+    location: null
+    approx_years: 1
+    summary: >
+      Builds and optimizes scalable full-stack applications, backend services, and
+      Agentic AI / automation workflows. Collaborates across frontend, backend, AI,
+      and blockchain to deliver production-ready features.
+    tech:
+      - React.js
+      - Next.js
+      - Go (Golang)
+      - Python
+      - Node.js
+      - PostgreSQL
+      - MongoDB
+      - REST APIs
+      - LLMs
+      - Agentic AI / tool-calling
+      - OpenClaw AI
+      - Blockchain / smart contracts
+    highlights:
+      - >
+        Built end-to-end full-stack applications using React.js, Go (Golang), Python,
+        PostgreSQL, and REST APIs, delivering scalable and high-performance solutions.
+      - >
+        Developed Agentic AI solutions and automation workflows in Python using LLMs,
+        AI orchestration, and tool-calling to streamline engineering processes.
+      - >
+        Engineered scalable backend services and APIs in Go with clean architecture,
+        performance optimization, and maintainable code.
+      - >
+        Designed and implemented an AI-powered onboarding and training platform using
+        OpenClaw AI, automating employee onboarding and reducing manual effort.
+      - >
+        Contributed to blockchain and smart contract development while collaborating
+        across frontend, backend, and AI systems to ship production-ready features.
+      - >
+        Worked with Generative AI, AI agents, Retrieval-Augmented Generation (RAG),
+        workflow automation, and integrating Large Language Models into real-world apps
+        (as described in professional cover letter).
+
+projects:
+  - name: "HirePrep AI"
+    period: "2026-03 — 2026-04"
+    github: "https://github.com/sjma21/Hire-Prep-AI"
+    summary: >
+      AI-powered full-stack interview platform with real-time question generation,
+      evaluation, voice interactions, and an in-browser coding environment.
+    tech: [React, TypeScript, Node.js, LLM APIs, STT/TTS]
+    highlights:
+      - "Real-time AI question generation and evaluation via LLM APIs"
+      - "Voice interactions (STT/TTS) with timed workflows, scoring, hints, and feedback"
+      - "In-browser coding environment with AI-based code analysis"
+
+  - name: "FinCore"
+    period: "2026-04"
+    github: "https://github.com/sjma21/Finance_Backend"
+    summary: >
+      Secure finance backend API with JWT auth, RBAC, transaction management,
+      validation, and rate-limited REST APIs.
+    tech: [Node.js, Express, PostgreSQL, Prisma, JWT, RBAC]
+    highlights:
+      - "Scalable REST architecture (controllers, services, middleware)"
+      - "JWT authentication and role-based access control"
+      - "Transaction management, validation, and rate limiting"
+
+  - name: "Veritas AI"
+    period: null
+    github: "https://github.com/sjma21/Veritas-AI"
+    summary: >
+      Multi-turn AI agent system with RAG, tool use, conversational memory,
+      streaming, citation verification, and an evaluation framework.
+    tech: [TypeScript, RAG, Agents, Streaming]
+    highlights:
+      - "Retrieval-augmented generation with citation verification"
+      - "Tool use, memory, streaming, and evaluation framework"
+
+  - name: "Meeting Mind"
+    period: null
+    github: "https://github.com/sjma21/Meeting-Mind"
+    summary: >
+      AI meeting agent that joins meetings, listens to conversation, and supports
+      meeting productivity workflows.
+    tech: [TypeScript, AI Agents]
+    highlights:
+      - "Meeting companion agent focused on live conversation understanding"
+
+  - name: "Meeting Agent (backend)"
+    period: null
+    github: "https://github.com/sjma21/Meeting-Agent"
+    summary: >
+      AI Meeting Assistant backend with FastAPI, multi-agent orchestration,
+      PostgreSQL, SQLAlchemy, Redis, and OpenRouter.
+    tech: [Python, FastAPI, PostgreSQL, Redis, OpenRouter, Multi-agent]
+
+  - name: "AI Trade Bot"
+    period: null
+    github: "https://github.com/sjma21/AI-Trade-bot"
+    summary: >
+      AI-powered crypto trading platform connected to Binance (testnet/mainnet);
+      analyses live market data with an LLM and provides buy/sell recommendations.
+    tech: [TypeScript, Binance API, LLMs]
+
+  - name: "Rag-Agent"
+    period: null
+    github: "https://github.com/sjma21/Rag-Agent"
+    summary: "Multi-tenant RAG backend for internal company knowledge assistants."
+    tech: [Python, RAG, Multi-tenant]
+
+  - name: "PropVideo AI"
+    period: null
+    github: null
+    summary: >
+      Notable personal project (mentioned in cover letter) exploring AI-driven
+      automation and intelligent document / media workflows. Details may be expanded
+      when a public repo link is available.
+    tech: [AI automation]
+    highlights:
+      - "Referenced as a notable project alongside Meeting Mind and Veritas AI"
+
+  - name: "Vita (this product)"
+    period: "2026-08 — Present"
+    github: "https://github.com/sjma21/VITA-AI"
+    summary: >
+      Personal living-resume chatbot so recruiters can ask grounded questions about
+      experience, stack, and projects instead of reading long emails or LinkedIn DMs.
+    tech: [Next.js, TypeScript, Prisma, PostgreSQL, pgvector, Anthropic, OpenAI]
+
+  - name: "Upgradeable gasless transactions"
+    period: null
+    github: "https://github.com/sjma21/Upgradeable_gasless_transaction"
+    summary: "Solidity project focused on upgradeable / gasless transaction patterns."
+    tech: [Solidity, Ethereum]
+
+  - name: "ERC20 Blockchain agent"
+    period: null
+    github: "https://github.com/sjma21/ERC20_Blockchain_agent"
+    summary: "Python agent workflows around ERC-20 / blockchain interactions."
+    tech: [Python, Blockchain]
+
+  - name: "Pin-Point"
+    period: null
+    github: "https://github.com/sjma21/Pin-Point"
+    summary: "NPM-oriented base to help frontend developers pinpoint and fix UI issues."
+    tech: [TypeScript]
+
+  - name: "CRM System / Team Task Management / Coding Platform backend"
+    period: null
+    github: null
+    related_repos:
+      - "https://github.com/sjma21/CRM-System"
+      - "https://github.com/sjma21/Team-Task-Management"
+      - "https://github.com/sjma21/Coding-Platform-backend"
+      - "https://github.com/sjma21/Invoice-Generator"
+    summary: >
+      Additional backend systems: CRM (leads, pipeline, RBAC dashboards), team
+      collaboration (workspaces, tasks, analytics), coding assessments with AI
+      evaluation, and invoicing (FastAPI + PDF generation).
 
 skills:
-  primary: []
-  secondary: []
-  tools: []
+  primary:
+    - name: "React.js"
+      level: "strong"
+      used_in_production: true
+    - name: "Next.js"
+      level: "strong"
+      used_in_production: true
+    - name: "Node.js / Express"
+      level: "strong"
+      used_in_production: true
+    - name: "Go (Golang)"
+      level: "strong"
+      used_in_production: true
+    - name: "Python"
+      level: "strong"
+      used_in_production: true
+    - name: "TypeScript / JavaScript"
+      level: "strong"
+      used_in_production: true
+    - name: "PostgreSQL / SQL"
+      level: "strong"
+      used_in_production: true
+    - name: "Agentic AI / LLMs / RAG"
+      level: "strong"
+      used_in_production: true
+  secondary:
+    - name: "MongoDB"
+      level: "proficient"
+      used_in_production: true
+    - name: "Java (Core)"
+      level: "proficient"
+      used_in_production: false
+    - name: "Solidity / Blockchain / Ethereum"
+      level: "proficient"
+      used_in_production: true
+    - name: "NestJS"
+      level: "familiar"
+      used_in_production: false
+    - name: "Prisma"
+      level: "proficient"
+      used_in_production: true
+  tools:
+    - "Git / GitHub"
+    - "REST APIs"
+    - "JWT / RBAC"
+    - "Tailwind CSS"
+    - "Bootstrap"
+    - "Vite"
+    - "OpenRouter"
+    - "Redis"
+    - "MetaMask"
+    - "Docker (local Postgres / app workflows)"
+    - "n8n workflows"
+  core_subjects:
+    - "Object-Oriented Programming (OOP)"
+    - "Database Management Systems (DBMS)"
+    - "Computer Networking"
+    - "Compiler Design"
+    - "Data Structures & Algorithms (DSA)"
+    - "System design fundamentals"
+  tech_stack_blurb: >
+    Full-stack: React.js, Next.js, Node.js, Express, Go, Python, PostgreSQL, MongoDB,
+    REST APIs, Tailwind/Bootstrap. AI: LLMs, agents, tool-calling, RAG, OpenClaw AI,
+    workflow automation. Web3: Solidity, Ethereum, MetaMask. Strong GitHub practice.
 
-education: []
+education:
+  - institution: "Acropolis Institute of Technology and Research, Indore"
+    degree: "B.Tech — Computer Science Engineering"
+    score: "CGPA 8.24"
+    start: "2022-11"
+    end: "Present"
+    status: "Final-year / ongoing"
+    highlights:
+      - "Strong foundation in operating systems, DBMS, and computer networks"
+      - "Hands-on programming and software development concepts"
 
-guardrails:
-  decline_topics:
-    - personal_life
-  # salary_expectations: optional — set policy later
+  - institution: "Montfort Sen. Sec. School, Mandla"
+    degree: "Senior Secondary (Class XII) — PCM (CBSE)"
+    score: "92.8%"
+    start: null
+    end: "2022-04"
+    highlights:
+      - "Secured Rank 1 in Class XII (CBSE Board) across the school"
+
+certifications:
+  - name: "NPTEL — Database Management Systems"
+    year: "2024"
+    issuer: "NPTEL"
+  - name: "NPTEL — Computer Networking"
+    year: "2025"
+    issuer: "NPTEL"
+  - name: "MongoDB Certification"
+    year: "2024-2025"
+    issuer: "MongoDB University"
+
+linkedin:
+  url: "https://www.linkedin.com/in/sajal-mishra20/"
+  note: >
+    Use LinkedIn for verification and latest activity. Do not scrape LinkedIn.
+    Canonical career facts for the agent live in this profile file and the resume PDF.
 
 github:
-  # Repos to ingest (allowlist). Empty = use pinned / configure later.
-  allowlist: []
+  url: "https://github.com/sjma21"
+  username: "sjma21"
+  public_repos_approx: 40
+  # Repos prioritized for Phase 1 ingest (allowlist). Expand as needed.
+  allowlist:
+    - "Hire-Prep-AI"
+    - "Finance_Backend"
+    - "Veritas-AI"
+    - "Meeting-Mind"
+    - "Meeting-Agent"
+    - "AI-Trade-bot"
+    - "Rag-Agent"
+    - "VITA-AI"
+    - "Upgradeable_gasless_transaction"
+    - "ERC20_Blockchain_agent"
+    - "Pin-Point"
+    - "CRM-System"
+    - "Team-Task-Management"
+    - "Coding-Platform-backend"
+    - "Invoice-Generator"
+    - "n8n_Workflows"
+    - "AI-Learning-Repository"
+
+faq_seeds:
+  # High-signal Q&A seeds for the future chat agent (not a substitute for RAG).
+  - q: "What is Sajal's current role?"
+    a: "Associate System Analyst at Syvora (July 2025 – Present), working as a full-stack / AI engineer."
+  - q: "How much professional experience?"
+    a: "About one year of professional experience at Syvora, plus substantial personal AI and full-stack projects."
+  - q: "Primary tech stack?"
+    a: "React/Next.js, Node.js, Go, Python, PostgreSQL/MongoDB, REST APIs, plus Agentic AI / RAG / LLM integrations; also Solidity for blockchain work."
+  - q: "Education?"
+    a: "B.Tech CSE at Acropolis Institute of Technology and Research, Indore (CGPA 8.24), final year; Class XII PCM 92.8%, school Rank 1."
+  - q: "Notable projects?"
+    a: "HirePrep AI, FinCore, Veritas AI, Meeting Mind, AI Trade Bot, Rag-Agent, plus Syvora production work including an OpenClaw AI onboarding/training platform."
+  - q: "Where is he based?"
+    a: "Bhopal, India. Contact: sajalmishra361@gmail.com. GitHub sjma21. LinkedIn sajal-mishra20."
+
+guardrails:
+  voice: "third_person" # default answers about the candidate in third person
+  decline_topics:
+    - personal_life
+    - family
+    - politics
+    - unrelated_opinions
+  salary_expectations: "redirect_to_email" # do not invent numbers
+  unknown_policy: >
+    If a fact is not in this profile, resume chunks, or GitHub ingest, say you don't
+    know and point the recruiter to LinkedIn, GitHub, portfolio, or email.
+    Never invent employers, dates, degrees, or metrics.
+  source_priority:
+    - profile
+    - resume
+    - github
+    - linkedin_link_only
