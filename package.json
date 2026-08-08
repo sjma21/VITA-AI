@@ -20,7 +20,10 @@
     "ingest:all": "tsx --env-file=.env scripts/ingest-all.ts"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^4.0.36",
+    "@ai-sdk/react": "^4.0.61",
     "@prisma/client": "^6.19.3",
+    "ai": "^7.0.58",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.30.0",
@@ -38,7 +41,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^20.19.43",
     "@types/pdf-parse": "^1.1.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
