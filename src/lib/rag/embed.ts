@@ -30,6 +30,8 @@ export async function embedTexts(texts: string[]): Promise<number[][]> {
     const response = await openai.embeddings.create({
       model,
       input: batch,
+      encoding_format: "float",
+      // Native size for nvidia/nemotron-3-embed-1b is 2048; omit if provider rejects.
       dimensions,
     });
 
