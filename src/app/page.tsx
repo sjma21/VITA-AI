@@ -72,6 +72,12 @@ export default function Home() {
             >
               Email
             </a>
+            <a
+              className="font-medium text-muted-foreground underline-offset-4 transition hover:text-foreground hover:underline"
+              href="/admin"
+            >
+              Admin
+            </a>
           </nav>
         </header>
 
