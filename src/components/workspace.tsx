@@ -4,19 +4,24 @@ import { useState } from "react";
 import { ChatPanel } from "@/components/chat-panel";
 import { JdFitPanel } from "@/components/jd-fit-panel";
 import { MeetingRequestPanel } from "@/components/meeting-request-panel";
+import { ProofPackPanel } from "@/components/proof-pack-panel";
+import type { ProofPack } from "@/lib/proof-pack";
 
-type Mode = "chat" | "jd" | "meet";
+type Mode = "chat" | "jd" | "proof" | "meet";
 
 export function Workspace({
   candidateName,
+  proofPack,
 }: {
   candidateName: string;
+  proofPack: ProofPack;
 }) {
   const [mode, setMode] = useState<Mode>("chat");
 
   const tabs: { id: Mode; label: string }[] = [
     { id: "chat", label: "Ask Vita" },
     { id: "jd", label: "Match JD" },
+    { id: "proof", label: "Proof pack" },
     { id: "meet", label: "Book a call" },
   ];
 
@@ -49,6 +54,8 @@ export function Workspace({
         <ChatPanel candidateName={candidateName} />
       ) : mode === "jd" ? (
         <JdFitPanel candidateName={candidateName} />
+      ) : mode === "proof" ? (
+        <ProofPackPanel pack={proofPack} />
       ) : (
         <MeetingRequestPanel candidateName={candidateName} />
       )}

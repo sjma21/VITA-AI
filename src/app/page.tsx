@@ -1,9 +1,11 @@
 import { Workspace } from "@/components/workspace";
 import { loadProfile } from "@/lib/profile";
+import { buildProofPack } from "@/lib/proof-pack";
 
 export default function Home() {
   const profile = loadProfile();
   const { identity } = profile;
+  const proofPack = buildProofPack(profile);
 
   return (
     <div className="relative flex flex-1 flex-col">
@@ -21,8 +23,8 @@ export default function Home() {
               {identity.title}
             </p>
             <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
-              Ask about experience, match a JD, or book a call — grounded in
-              profile, resume, and GitHub.
+              Ask about experience, match a JD, review the proof pack, or book a
+              call — grounded in profile, resume, and GitHub.
             </p>
           </div>
 
@@ -74,7 +76,7 @@ export default function Home() {
         </header>
 
         <div className="vita-animate-fade-up vita-delay-2 flex min-h-0 flex-1 flex-col">
-          <Workspace candidateName={identity.name} />
+          <Workspace candidateName={identity.name} proofPack={proofPack} />
         </div>
       </main>
     </div>
