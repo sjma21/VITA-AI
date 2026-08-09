@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { AdminCollapsible } from "@/components/admin-collapsible";
 import { Button } from "@/components/ui/button";
 
 type Busy =
@@ -172,33 +173,26 @@ export function AdminKnowledgePanel({
 
   const locked = busy !== null;
 
+  const chunkBadge =
+    chunkCounts.length > 0
+      ? chunkCounts.map((c) => `${c.source} ${c.count}`).join(" · ")
+      : "no chunks yet";
+
   return (
-    <section aria-labelledby="admin-knowledge" className="flex flex-col gap-8">
-      <div>
-        <h2
-          id="admin-knowledge"
-          className="font-heading text-lg text-foreground"
-        >
-          Update knowledge
-        </h2>
-        <p className="mt-1 text-xs text-muted-foreground">
+    <AdminCollapsible
+      title="Update knowledge"
+      subtitle="Profile, PDF uploads, and GitHub sync — expand to edit."
+      badge={chunkBadge}
+      defaultOpen={false}
+    >
+      <div className="flex flex-col gap-8">
+        <p className="text-xs text-muted-foreground">
           1) Edit profile → 2) Upload resume / cover letter PDFs → 3) Sync
           GitHub. Each step can save and re-embed into Vita.
         </p>
-        {chunkCounts.length > 0 ? (
-          <p className="mt-2 text-xs text-muted-foreground">
-            Chunks in DB:{" "}
-            {chunkCounts.map((c) => `${c.source} ${c.count}`).join(" · ")}
-          </p>
-        ) : (
-          <p className="mt-2 text-xs text-muted-foreground">
-            No chunks yet — save &amp; ingest to seed Vita.
-          </p>
-        )}
-      </div>
 
       {/* 1. Profile */}
-      <div className="flex flex-col gap-3 border-t border-border/70 pt-6">
+      <div className="flex flex-col gap-3">
         <div>
           <p className="text-sm font-semibold text-foreground">
             1. Profile update
@@ -382,6 +376,7 @@ export function AdminKnowledgePanel({
           </ul>
         </div>
       ) : null}
-    </section>
+      </div>
+    </AdminCollapsible>
   );
 }
