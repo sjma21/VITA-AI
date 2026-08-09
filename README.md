@@ -64,8 +64,8 @@ Open [http://localhost:3000](http://localhost:3000) and ask recruiter questions.
 Use **Match JD** to paste a job description and get a grounded fit report.
 Use **Proof pack** for resume / cover letter downloads, LinkedIn, and featured GitHub repos.
 Use **Book a call** so HRs can request a meeting (emails only `OWNER_EMAIL` via Resend — no HR auto-reply).
-Owner **Admin inbox** at [/admin](http://localhost:3000/admin) (set `ADMIN_PASSWORD` in `.env`) lists meeting requests and recent chats.
-Requires `ANTHROPIC_API_KEY` + `OPENROUTER_API_KEY` in `.env` (and ingested chunks via `pnpm ingest:all`).
+Owner **Admin** at [/admin](http://localhost:3000/admin) (set `ADMIN_PASSWORD` in `.env`) lets you **update knowledge** (edit profile YAML, upload resume/cover PDFs, sync GitHub allowlist), review meeting requests, and read recent chats.
+Requires `ANTHROPIC_API_KEY` + `OPENROUTER_API_KEY` in `.env` (seed via Admin → Update knowledge, or `pnpm ingest:all`).
 For meeting emails, set `RESEND_API_KEY` and `OWNER_EMAIL=sajalmishra361@gmail.com`.
 
 | Script | Purpose |
