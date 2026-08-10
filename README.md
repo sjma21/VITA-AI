@@ -13,7 +13,7 @@ See [docs/PLAN.md](docs/PLAN.md) for the full product plan.
 - Prisma + PostgreSQL + pgvector
 - Docker Compose for local Postgres (**host port 5433** — avoids clashing with local Postgres on 5432)
 - Embeddings via **OpenRouter** (`nvidia/nemotron-3-embed-1b:free`, 2048 dims)
-- Chat LLM (Phase 2): Anthropic Claude
+- Chat LLM: **Anthropic Claude** (primary, up to 3 retries) with **Google Gemini** fallback
 
 ## Prerequisites
 
@@ -21,7 +21,8 @@ See [docs/PLAN.md](docs/PLAN.md) for the full product plan.
 - [pnpm](https://pnpm.io)
 - Docker Desktop running (for local Postgres)
 - [OpenRouter API key](https://openrouter.ai/keys) (embeddings)
-- Anthropic API key (chat — Phase 2)
+- Anthropic API key (primary chat LLM)
+- Google AI Studio / Gemini API key (fallback LLM — `GOOGLE_GENERATIVE_AI_API_KEY`)
 - GitHub personal access token (read-only) for repo ingest
 
 ## Setup
@@ -66,7 +67,8 @@ Use **Tailored pitch** to enter a company + role and get a short custom pitch.
 Use **Proof pack** for resume / cover letter downloads, LinkedIn, and featured GitHub repos.
 Use **Book a call** so HRs can request a meeting (emails only `OWNER_EMAIL` via Resend — no HR auto-reply).
 Owner **Admin** at [/admin](http://localhost:3000/admin) (set `ADMIN_PASSWORD` in `.env`) lets you **update knowledge** (edit profile YAML, upload resume/cover PDFs, sync GitHub allowlist), review meeting requests, and read recent chats.
-Requires `ANTHROPIC_API_KEY` + `OPENROUTER_API_KEY` in `.env` (seed via Admin → Update knowledge, or `pnpm ingest:all`).
+Requires `ANTHROPIC_API_KEY` (primary) and/or `GOOGLE_GENERATIVE_AI_API_KEY` (Gemini fallback), plus `OPENROUTER_API_KEY` in `.env` (seed via Admin → Update knowledge, or `pnpm ingest:all`).
+Claude is tried up to `LLM_CLAUDE_MAX_ATTEMPTS` (default 3); on repeated errors Vita switches to Gemini.
 For meeting emails, set `RESEND_API_KEY` and `OWNER_EMAIL=sajalmishra361@gmail.com`.
 
 | Script | Purpose |
