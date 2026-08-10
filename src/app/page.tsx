@@ -1,3 +1,4 @@
+import { IntroSplash } from "@/components/intro-splash";
 import { Workspace } from "@/components/workspace";
 import { loadProfile } from "@/lib/profile";
 import { buildProofPack } from "@/lib/proof-pack";
@@ -9,6 +10,7 @@ export default function Home() {
 
   return (
     <div className="relative flex flex-1 flex-col">
+      <IntroSplash />
       <main className="relative z-10 mx-auto flex w-full max-w-3xl flex-1 flex-col px-5 pb-10 pt-10 sm:px-6 sm:pt-14">
         <header className="vita-animate-fade-up mb-8 flex flex-col gap-5">
           <p className="font-heading text-3xl tracking-tight text-vita-teal sm:text-4xl">
