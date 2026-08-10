@@ -62,6 +62,7 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) and ask recruiter questions.
 Use **Match JD** to paste a job description and get a grounded fit report.
+Use **Tailored pitch** to enter a company + role and get a short custom pitch.
 Use **Proof pack** for resume / cover letter downloads, LinkedIn, and featured GitHub repos.
 Use **Book a call** so HRs can request a meeting (emails only `OWNER_EMAIL` via Resend — no HR auto-reply).
 Owner **Admin** at [/admin](http://localhost:3000/admin) (set `ADMIN_PASSWORD` in `.env`) lets you **update knowledge** (edit profile YAML, upload resume/cover PDFs, sync GitHub allowlist), review meeting requests, and read recent chats.

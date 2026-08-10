@@ -23,8 +23,9 @@ export default function Home() {
               {identity.title}
             </p>
             <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
-              Ask about experience, match a JD, review the proof pack, or book a
-              call — grounded in profile, resume, and GitHub.
+              Ask about experience, match a JD, get a tailored pitch, review
+              the proof pack, or book a call — grounded in profile, resume, and
+              GitHub.
             </p>
           </div>
 
