@@ -1,5 +1,3 @@
-import { streamText } from "ai";
-import { anthropic } from "@ai-sdk/anthropic";
 import { loadProfile } from "@/lib/profile";
 import { retrieveRelevantChunks } from "@/lib/rag/retrieve";
 import { buildCompanyPitchSystemPrompt } from "@/lib/llm/company-pitch";
@@ -8,17 +6,26 @@ import {
   PITCH_NOTES_MAX,
   PITCH_ROLE_MAX,
 } from "@/lib/limits";
+import { assertAnyLlmConfigured } from "@/lib/llm/models";
+import {
+  createResilientTextStreamResponse,
+  llmErrorResponse,
+} from "@/lib/llm/resilient";
 import { prisma } from "@/lib/db";
-import { requireEnv } from "@/lib/env";
 
 export const maxDuration = 60;
 
 export async function POST(req: Request) {
   try {
-    requireEnv("ANTHROPIC_API_KEY");
-  } catch {
+    assertAnyLlmConfigured();
+  } catch (err) {
     return new Response(
-      JSON.stringify({ error: "ANTHROPIC_API_KEY is not configured" }),
+      JSON.stringify({
+        error:
+          err instanceof Error
+            ? err.message
+            : "No LLM configured (Claude and/or Gemini)",
+      }),
       { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }
@@ -74,7 +81,6 @@ export async function POST(req: Request) {
     topK: 10,
     minScore: 0.15,
   });
-  const modelId = process.env.CHAT_MODEL?.trim() || "claude-sonnet-4-5";
 
   await prisma.event.create({
     data: {
@@ -96,12 +102,30 @@ export async function POST(req: Request) {
     notes ? `Notes from recruiter:\n${notes}` : "Notes from recruiter: (none)",
   ].join("\n");
 
-  const result = streamText({
-    model: anthropic(modelId),
-    system: buildCompanyPitchSystemPrompt(profile, evidence),
-    prompt: userPrompt,
-    temperature: 0.35,
-  });
-
-  return result.toTextStreamResponse();
+  try {
+    return createResilientTextStreamResponse(
+      {
+        system: buildCompanyPitchSystemPrompt(profile, evidence),
+        prompt: userPrompt,
+        temperature: 0.35,
+      },
+      {
+        onFinish: async ({ provider, claudeAttempts, errors }) => {
+          await prisma.event.create({
+            data: {
+              type: "llm_provider",
+              payload: {
+                feature: "company_pitch",
+                provider,
+                claudeAttempts,
+                errors,
+              },
+            },
+          });
+        },
+      },
+    );
+  } catch (err) {
+    return llmErrorResponse(err);
+  }
 }

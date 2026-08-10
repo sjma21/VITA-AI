@@ -1,24 +1,33 @@
 import {
   convertToModelMessages,
-  streamText,
   type UIMessage,
 } from "ai";
-import { anthropic } from "@ai-sdk/anthropic";
 import { loadProfile } from "@/lib/profile";
 import { retrieveRelevantChunks } from "@/lib/rag/retrieve";
 import { buildSystemPrompt, lastUserText } from "@/lib/llm/system-prompt";
+import {
+  assertAnyLlmConfigured,
+} from "@/lib/llm/models";
+import {
+  createResilientUiMessageStreamResponse,
+  llmErrorResponse,
+} from "@/lib/llm/resilient";
 import { prisma } from "@/lib/db";
 import { createId } from "@/lib/id";
-import { requireEnv } from "@/lib/env";
 
 export const maxDuration = 60;
 
 export async function POST(req: Request) {
   try {
-    requireEnv("ANTHROPIC_API_KEY");
-  } catch {
+    assertAnyLlmConfigured();
+  } catch (err) {
     return new Response(
-      JSON.stringify({ error: "ANTHROPIC_API_KEY is not configured" }),
+      JSON.stringify({
+        error:
+          err instanceof Error
+            ? err.message
+            : "No LLM configured (Claude and/or Gemini)",
+      }),
       { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }
@@ -78,49 +87,65 @@ export async function POST(req: Request) {
     },
   });
 
-  const modelId = process.env.CHAT_MODEL?.trim() || "claude-sonnet-4-5";
   const system = buildSystemPrompt(profile, evidence);
+  const modelMessages = await convertToModelMessages(messages);
 
-  const result = streamText({
-    model: anthropic(modelId),
-    system,
-    messages: await convertToModelMessages(messages),
-    temperature: 0.2,
-    onFinish: async ({ text }) => {
-      try {
-        await prisma.message.create({
-          data: {
-            conversationId: conversationId!,
-            role: "assistant",
-            content: text,
-            citations: evidence.map((e) => ({
-              source: e.source,
-              sourceRef: e.sourceRef,
-              score: e.score,
-            })),
-          },
-        });
-      } catch (err) {
-        console.error("failed to persist assistant message", err);
-      }
-    },
-  });
-
-  return result.toUIMessageStreamResponse({
-    headers: {
-      "x-conversation-id": conversationId,
-    },
-    messageMetadata: ({ part }) => {
-      if (part.type === "start" || part.type === "finish") {
-        return {
-          citations: evidence.map((e) => ({
-            source: e.source,
-            sourceRef: e.sourceRef,
-            score: Number(e.score.toFixed(3)),
-          })),
-        };
-      }
-      return undefined;
-    },
-  });
+  try {
+    return createResilientUiMessageStreamResponse(
+      {
+        system,
+        messages: modelMessages,
+        temperature: 0.2,
+      },
+      {
+        headers: {
+          "x-conversation-id": conversationId,
+        },
+        messageMetadata: (part) => {
+          if (part.type === "start" || part.type === "finish") {
+            return {
+              citations: evidence.map((e) => ({
+                source: e.source,
+                sourceRef: e.sourceRef,
+                score: Number(e.score.toFixed(3)),
+              })),
+            };
+          }
+          return undefined;
+        },
+        onFinish: async ({ text, provider, claudeAttempts, errors }) => {
+          try {
+            await prisma.message.create({
+              data: {
+                conversationId: conversationId!,
+                role: "assistant",
+                content: text,
+                citations: evidence.map((e) => ({
+                  source: e.source,
+                  sourceRef: e.sourceRef,
+                  score: e.score,
+                })),
+              },
+            });
+            await prisma.event.create({
+              data: {
+                conversationId,
+                type: "llm_provider",
+                payload: {
+                  feature: "chat",
+                  provider,
+                  claudeAttempts,
+                  errors,
+                },
+              },
+            });
+          } catch (err) {
+            console.error("failed to persist assistant message", err);
+          }
+        },
+      },
+    );
+  } catch (err) {
+    return llmErrorResponse(err);
+  }
 }
